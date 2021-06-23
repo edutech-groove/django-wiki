@@ -5,6 +5,7 @@ from django.contrib.contenttypes import fields
 from django.contrib.auth.models import User, Group
 from django.db.models.fields import GenericIPAddressField
 from django.db import models
+from django.utils.encoding import DjangoUnicodeDecodeError
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _
 
@@ -115,11 +116,11 @@ class Article(models.Model):
     def set_permissions_recursive(self):
         for descendant in self.descendant_objects():
             if descendant.INHERIT_PERMISSIONS:
-                descendant.group_read = self.group_read
-                descendant.group_write = self.group_write
-                descendant.other_read = self.other_read
-                descendant.other_write = self.other_write
-                descendant.save()
+                descendant.article.group_read = self.group_read
+                descendant.article.group_write = self.group_write
+                descendant.article.other_read = self.other_read
+                descendant.article.other_write = self.other_write
+                descendant.article.save()
 
     def set_group_recursive(self):
         for descendant in self.descendant_objects():
