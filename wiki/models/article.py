@@ -115,11 +115,11 @@ class Article(models.Model):
     def set_permissions_recursive(self):
         for descendant in self.descendant_objects():
             if descendant.INHERIT_PERMISSIONS:
-                descendant.group_read = self.group_read
-                descendant.group_write = self.group_write
-                descendant.other_read = self.other_read
-                descendant.other_write = self.other_write
-                descendant.save()
+                descendant.article.group_read = self.group_read
+                descendant.article.group_write = self.group_write
+                descendant.article.other_read = self.other_read
+                descendant.article.other_write = self.other_write
+                descendant.article.save()
 
     def set_group_recursive(self):
         for descendant in self.descendant_objects():
