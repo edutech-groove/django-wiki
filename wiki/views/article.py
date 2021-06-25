@@ -6,6 +6,7 @@ from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django.shortcuts import render_to_response, redirect, get_object_or_404, render
 from django.template.context import RequestContext
+from django.views.decorators.clickjacking import xframe_options_sameorigin
 from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext as _
 from django.views.generic.base import TemplateView, View
@@ -610,6 +611,7 @@ def diff(request, revision_id, other_revision_id=None):
     return dict(diff=list(diff), other_changes=other_changes)
 
 # TODO: Throw in a class-based view
+@method_decorator(xframe_options_sameorigin)
 @get_article(can_write=True)
 def merge(request, article, revision_id, urlpath=None, template_file="wiki/preview_inline.html", preview=False):
     
