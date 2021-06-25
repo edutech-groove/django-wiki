@@ -6,7 +6,6 @@ from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django.shortcuts import render_to_response, redirect, get_object_or_404, render
 from django.template.context import RequestContext
-from django.views.decorators.clickjacking import xframe_options_sameorigin
 from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext as _
 from django.views.generic.base import TemplateView, View
