@@ -11,6 +11,7 @@ from django.utils.translation import ugettext as _
 from django.views.generic.base import TemplateView, View
 from django.views.generic.edit import FormView
 from django.views.generic.list import ListView
+from django.views.decorators.clickjacking import xframe_options_sameorigin
 
 from wiki.views.mixins import ArticleMixin
 from wiki import editors, forms, models
@@ -551,7 +552,7 @@ def change_revision(request, article, revision_id=None, urlpath=None):
 class Preview(ArticleMixin, TemplateView):
     
     template_name="wiki/preview_inline.html"
-    
+    @method_decorator(xframe_options_sameorigin)
     @method_decorator(get_article(can_read=True, deleted_contents=True))
     def dispatch(self, request, article, *args, **kwargs):
         revision_id = request.GET.get('r', None)
