@@ -54,10 +54,9 @@ class ArticleFkQuerySetMixin():
         if user.is_anonymous():
             q = self.filter(article__other_read=True)
         else:
-            q = self.filter(Q(article__other_read=True) |
-                            Q(article__owner=user) |
-                            (Q(article__group__user=user) & Q(article__group_read=True))
-                            )
+            q = self.filter(
+                Q(article__other_read=True) |
+                (Q(article__group__user=user) & Q(article__group_read=True)))
         return q
     
     def can_write(self, user):
@@ -69,7 +68,6 @@ class ArticleFkQuerySetMixin():
             q = self.filter(article__other_write=True)
         else:
             q = self.filter(Q(article__other_write=True) |
-                            Q(article__owner=user) |
                             (Q(article__group__user=user) & Q(article__group_write=True))
                             )
         return q
