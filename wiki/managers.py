@@ -57,7 +57,7 @@ class ArticleFkQuerySetMixin():
             q = self.filter(
                 Q(article__other_read=True) |
                 (Q(article__group__user=user) & Q(article__group_read=True)))
-        return q
+        return q.distinct()
     
     def can_write(self, user):
         """Filter objects so only the ones with a user's writing access
@@ -70,7 +70,7 @@ class ArticleFkQuerySetMixin():
             q = self.filter(Q(article__other_write=True) |
                             (Q(article__group__user=user) & Q(article__group_write=True))
                             )
-        return q
+        return q.distinct()
 
     def active(self):
         return self.filter(article__current_revision__deleted=False)
