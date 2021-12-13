@@ -32,8 +32,8 @@ package_data = dict(
 )
 
 setup(
-    name = "edt-django-wiki",
-    version="1.0.21",
+    name = "django-wiki",
+    version="0.0.21",
     author="Benjamin Bach",
     author_email="benjamin@overtag.dk",
     description=("A wiki system written for the Django framework."),
